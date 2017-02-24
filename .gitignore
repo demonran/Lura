@@ -1,0 +1,36 @@
+## MAC OS
+.DS_Store
+
+## Intellij
+*.iml
+.idea
+.gradle
+pom.xml
+
+## Node
+lib-cov
+*.seed
+*.log
+*.csv
+*.dat
+*.out
+*.pid
+*.gz
+
+pids
+logs
+
+cache/*
+deploy/provision/images/base/*.repo
+
+
+
+version.txt
+
+.project
+.classpath
+.settings/
+.metadata
+build/
+index
+

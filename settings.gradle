@@ -1,0 +1,10 @@
+rootProject.name = 'gateway'
+include 'commons'
+
+include 'api-gateway'
+include 'resource'
+include 'user'
+include 'charts'
+include 'ui'
+include 'db'
+

@@ -1,0 +1,8 @@
+server.port: 8080
+
+zuul.routes:
+  sf-services-webs:
+    path: /sf-service-web/**
+    url: http://www.sf-express.com/sf-service-web/
+
+  test.url: http://www.sf-express.com/sf-service-web/
