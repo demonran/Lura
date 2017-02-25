@@ -1,14 +1,20 @@
 package com.lura.portal.model.db;
 
+import javax.persistence.*;
 import java.util.Date;
+
+
 
 /**
  * Created by 01182799 on 2017/2/24.
  */
-
+@Entity
+@Table(name = "Requirement" )
 public class DRequirement {
 
-    private int id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     private String name;
 
@@ -24,7 +30,7 @@ public class DRequirement {
 
     private String developer;
 
-    private String testTime;
+    private Date testTime;
 
     private String tester;
 
@@ -32,16 +38,14 @@ public class DRequirement {
 
     private String status;
 
-    public DRequirement(int id, String name) {
-        this.id = id;
-        this.name = name;
+    public DRequirement() {
     }
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -103,11 +107,11 @@ public class DRequirement {
         this.developer = developer;
     }
 
-    public String getTestTime() {
+    public Date getTestTime() {
         return testTime;
     }
 
-    public void setTestTime(String testTime) {
+    public void setTestTime(Date testTime) {
         this.testTime = testTime;
     }
 

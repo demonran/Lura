@@ -52,19 +52,19 @@ project.ext{
 configure(commonProject){
     project.ext {
         swaggerVersion = '2.6.1'
+        hibernameJpaVersion = '1.0.0.Final'
     }
 
     dependencies {
         compile(
             "io.springfox:springfox-swagger2:$swaggerVersion",
-            "io.springfox:springfox-swagger-ui:$swaggerVersion"
+            "io.springfox:springfox-swagger-ui:$swaggerVersion",
+            "org.hibernate.javax.persistence:hibernate-jpa-2.1-api:$hibernameJpaVersion"
         )
     }
 }
 
 configure(allOtherProjects) {
-
-
     apply plugin: 'io.spring.dependency-management'
 
     dependencies{

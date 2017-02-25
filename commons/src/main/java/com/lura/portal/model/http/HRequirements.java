@@ -1,5 +1,6 @@
 package com.lura.portal.model.http;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -10,7 +11,7 @@ public class HRequirements {
 
     private int status;
 
-    private List<Requirement> requirements;
+    private List<Requirement> requirements = new ArrayList<>();
 
     public int getStatus() {
         return status;
@@ -35,7 +36,7 @@ public class HRequirements {
 
     public static class Requirement{
 
-        private int id;
+        private Long id;
 
         private String name;
 
@@ -51,7 +52,7 @@ public class HRequirements {
 
         private String developer;
 
-        private String testTime;
+        private Date testTime;
 
         private String tester;
 
@@ -59,16 +60,15 @@ public class HRequirements {
 
         private String status;
 
-    public Requirement(int id, String name) {
-            this.id = id;
-            this.name = name;
+
+        public Requirement() {
         }
 
-        public int getId() {
+        public Long getId() {
             return id;
         }
 
-        public void setId(int id) {
+        public void setId(Long id) {
             this.id = id;
         }
 
@@ -130,11 +130,11 @@ public class HRequirements {
             this.developer = developer;
         }
 
-        public String getTestTime() {
+        public Date getTestTime() {
             return testTime;
         }
 
-        public void setTestTime(String testTime) {
+        public void setTestTime(Date testTime) {
             this.testTime = testTime;
         }
 

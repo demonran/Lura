@@ -8,10 +8,12 @@ import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.RestTemplate;
 
 import javax.servlet.http.HttpSession;
 import java.util.List;
@@ -23,6 +25,9 @@ import java.util.List;
 public class ResourceController {
 
     private static Logger log = LoggerFactory.getLogger(ResourceController.class);
+
+    @Autowired
+    private RestTemplate restTemplate;
 
     @ApiOperation(value = "访问资源" ,notes="获取用户所需资源")
     @RequestMapping(value="/resource" ,method= RequestMethod.GET)
@@ -56,12 +61,8 @@ public class ResourceController {
 
     @RequestMapping(value = "/requirements",method= RequestMethod.GET)
     public HRequirements getRequirements(){
-        HRequirements requirements = new HRequirements();
-        requirements.setStatus(200);
-        requirements.addRequirement(new HRequirements.Requirement(1,"新增多语言收送范围查询模块"))
-            .addRequirement(new HRequirements.Requirement(2,"韩国邮编更新"));
+        return  restTemplate.getForObject("http://localhost:8001/requirements" , HRequirements.class);
 
-        return requirements;
     }
 }
 
