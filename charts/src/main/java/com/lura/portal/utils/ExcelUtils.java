@@ -1,9 +1,12 @@
 package com.lura.portal.utils;
 
 import org.apache.poi.hssf.usermodel.*;
-import org.apache.poi.ss.usermodel.HorizontalAlignment;
+import org.apache.poi.ss.usermodel.*;
 
 import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.lang.reflect.Field;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -14,6 +17,60 @@ public class ExcelUtils {
 
     private static int index = 0;
 
+
+    public  static <T> List<T> importExcel(InputStream is , Class<T> clazz){
+
+        //内容
+        List<T> objs = new ArrayList<>();
+
+        try {
+            //用WorkbookFactory 创建WB，兼容2007和2010版本。
+            Workbook wb = WorkbookFactory.create(is);
+            Sheet sheet = wb.getSheetAt(0);
+
+            //获取表头
+            Row row = sheet.getRow(0);
+
+            //标题
+            List<String> titles = new ArrayList<>();
+
+
+
+            for (int i =0;i<row.getLastCellNum();i++)
+            {
+                Cell cell = row.getCell(i);
+                titles.add(cell.getStringCellValue());
+            }
+
+            titles.forEach(title->System.out.print(title+","));
+
+            for(int i=1;i<sheet.getLastRowNum();i++){
+
+                T obj = clazz.newInstance();
+                Field[] fields = clazz.getDeclaredFields();
+                row = sheet.getRow(i);
+                for (int j=0;j<row.getLastCellNum();j++)
+                {
+                    Cell cell = row.getCell(j);
+                    fields[j].setAccessible(true);
+                    fields[j].set(obj,getCellValue(fields[j].getType().getName(),cell));
+
+                }
+
+                objs.add(obj);
+
+            }
+
+
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return objs;
+
+    }
+
     public static void exportExcel(String[] titles , List<Object> entitys){
         // 第一步，创建一个webbook，对应一个Excel文件
         HSSFWorkbook wb = new HSSFWorkbook();
@@ -23,7 +80,7 @@ public class ExcelUtils {
         HSSFRow row = sheet.createRow(0);
 
         HSSFCellStyle style = wb.createCellStyle();
-        style.setAlignment(HorizontalAlignment.CENTER);
+        style.setAlignment(HSSFCellStyle.ALIGN_CENTER);
 
 
 
@@ -84,5 +141,41 @@ public class ExcelUtils {
             });
         }
 
+    }
+
+
+
+    /**
+     * 描述：对表格中数值进行格式化
+     * @param cell
+     * @return
+     */
+    private static Object getCellValue(String fieldType , Cell cell){
+
+        Object value = null;
+
+        if(fieldType.endsWith("Integer") )
+        {
+            value = (int) cell.getNumericCellValue();
+
+        }else if(fieldType.endsWith("Long"))
+        {
+            value = (long) cell.getNumericCellValue();
+        }
+        else if(fieldType.endsWith("Date"))
+        {
+            value =  cell.getDateCellValue();
+        }
+        else if(fieldType.endsWith("boolean"))
+        {
+            value =  cell.getBooleanCellValue();
+        }
+        else
+        {
+            value =  cell.getStringCellValue();
+        }
+
+
+        return value;
     }
 }

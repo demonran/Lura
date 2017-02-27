@@ -34,6 +34,11 @@ public class HRequirements {
         return this;
     }
 
+    public HRequirements addRequirement(List<Requirement> requirement) {
+        requirements.addAll(requirement);
+        return this;
+    }
+
     public static class Requirement{
 
         private Long id;
@@ -162,6 +167,23 @@ public class HRequirements {
             this.status = status;
         }
 
+        @Override
+        public String toString() {
+            return "Requirement{" +
+                    "id=" + id +
+                    ", name='" + name + '\'' +
+                    ", detail='" + detail + '\'' +
+                    ", sysCode='" + sysCode + '\'' +
+                    ", expectedUpdateTime=" + expectedUpdateTime +
+                    ", submitter='" + submitter + '\'' +
+                    ", developTime=" + developTime +
+                    ", developer='" + developer + '\'' +
+                    ", testTime=" + testTime +
+                    ", tester='" + tester + '\'' +
+                    ", remarks='" + remarks + '\'' +
+                    ", status='" + status + '\'' +
+                    '}';
+        }
     }
 
 

@@ -25,7 +25,7 @@ public class DBController {
     }
 
     @RequestMapping(value = "/requirements" ,method = RequestMethod.GET)
-    public HRequirements saveRequirement(){
+    public HRequirements getRequirements(){
 
         HRequirements  requirements =  RequirementConverter.DConvertToH(requirementRepository.findAll());
         requirements.setStatus(200);
