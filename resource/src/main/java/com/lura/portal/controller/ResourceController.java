@@ -9,10 +9,7 @@ import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
 import javax.servlet.http.HttpSession;
@@ -63,6 +60,12 @@ public class ResourceController {
     public HRequirements getRequirements(){
         return  restTemplate.getForObject("http://localhost:8001/requirements" , HRequirements.class);
 
+    }
+
+    @RequestMapping(value = "/requirement/{id}",method= RequestMethod.DELETE)
+    public String getRequirement(@PathVariable Long id){
+         restTemplate.delete("http://localhost:8001/requirement/{id}" ,id);
+        return "ok";
     }
 }
 

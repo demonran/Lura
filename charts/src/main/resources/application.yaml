@@ -1,0 +1,6 @@
+spring:
+  application:
+    name: charts
+
+server:
+  port: 8002

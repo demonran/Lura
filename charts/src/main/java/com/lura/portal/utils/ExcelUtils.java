@@ -1,5 +1,6 @@
 package com.lura.portal.utils;
 
+import io.swagger.models.auth.In;
 import org.apache.poi.hssf.usermodel.*;
 import org.apache.poi.ss.usermodel.*;
 
@@ -35,7 +36,6 @@ public class ExcelUtils {
             List<String> titles = new ArrayList<>();
 
 
-
             for (int i =0;i<row.getLastCellNum();i++)
             {
                 Cell cell = row.getCell(i);
@@ -44,20 +44,33 @@ public class ExcelUtils {
 
             titles.forEach(title->System.out.print(title+","));
 
-            for(int i=1;i<sheet.getLastRowNum();i++){
+            for(int i=1;i<=sheet.getLastRowNum();i++){
 
                 T obj = clazz.newInstance();
                 Field[] fields = clazz.getDeclaredFields();
                 row = sheet.getRow(i);
-                for (int j=0;j<row.getLastCellNum();j++)
+
+                boolean noEmpty = false;
+                for (int j=0;j<fields.length;j++)
                 {
                     Cell cell = row.getCell(j);
                     fields[j].setAccessible(true);
-                    fields[j].set(obj,getCellValue(fields[j].getType().getName(),cell));
+
+                    Object fieldValue = getCellValue(fields[j].getType().getName(),cell);
+                    fields[j].set(obj,fieldValue);
+//
+
+                    if(fieldValue != null && !fieldValue.equals("") && !fieldValue.toString().equals("0")){
+
+                        noEmpty = true;
+                    }
 
                 }
+                //所有字段都为null则不保存
+                if(noEmpty){
+                    objs.add(obj);
+                }
 
-                objs.add(obj);
 
             }
 
@@ -66,7 +79,7 @@ public class ExcelUtils {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
+        System.out.println(objs.size());
         return objs;
 
     }
@@ -117,8 +130,6 @@ public class ExcelUtils {
 
             Class clazz = entity.getClass();
 
-//            System.out.println(clazz.getName());
-//            System.out.println(clazz.getDeclaredFields());
 
             index = 0;
             Arrays.asList( clazz.getDeclaredFields()).forEach( field ->{
@@ -153,6 +164,9 @@ public class ExcelUtils {
     private static Object getCellValue(String fieldType , Cell cell){
 
         Object value = null;
+        if(cell == null){
+            return value;
+        }
 
         if(fieldType.endsWith("Integer") )
         {

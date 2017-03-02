@@ -1,7 +1,7 @@
 /**
  * Created by 01182799 on 2017/2/24.
  */
-var app = angular.module('myApp', ['ngRoute']);
+var app = angular.module('myApp', ['ngRoute','ui.bootstrap']);
 
 app.config(['$routeProvider',function($routeProvider) {
     $routeProvider

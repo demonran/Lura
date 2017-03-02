@@ -31,4 +31,13 @@ public class DBController {
         requirements.setStatus(200);
         return requirements;
     }
+
+    @RequestMapping(value = "/requirement/{id}" ,method = RequestMethod.DELETE)
+    public String deleteRequirement(@PathVariable Long id){
+
+        requirementRepository.delete(id);
+
+
+        return "ok";
+    }
 }

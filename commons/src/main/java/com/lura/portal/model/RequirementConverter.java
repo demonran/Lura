@@ -50,6 +50,7 @@ public class RequirementConverter {
 
     public static HRequirements DConvertToH(Iterable<DRequirement> dRequirements){
         HRequirements requirements = new HRequirements();
+       // System.out.println(dRequirements);
 
         dRequirements.forEach(( dReq) ->{
             requirements.addRequirement(DConvertToH(dReq));

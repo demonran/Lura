@@ -1,0 +1,15 @@
+{
+  "version": "0.0.0",
+  "name": "my-app",
+  "appPath": "src/main/resources/static/",
+
+  "dependencies": {
+    "angular": "1.5.8",
+    "angular-bootstrap": "1.3.3",
+    "bootstrap": "3.3.7",
+    "bootstrap-ui-datetime-picker": "2.4.3",
+    "jquery": "3.1.0"
+  }
+
+
+}

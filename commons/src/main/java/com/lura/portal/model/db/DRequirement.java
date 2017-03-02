@@ -10,6 +10,7 @@ import java.util.Date;
  */
 @Entity
 @Table(name = "Requirement" )
+@Cacheable
 public class DRequirement {
 
     @Id
@@ -137,5 +138,23 @@ public class DRequirement {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    @Override
+    public String toString() {
+        return "DRequirement{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", detail='" + detail + '\'' +
+                ", sysCode='" + sysCode + '\'' +
+                ", expectedUpdateTime=" + expectedUpdateTime +
+                ", submitter='" + submitter + '\'' +
+                ", developTime=" + developTime +
+                ", developer='" + developer + '\'' +
+                ", testTime=" + testTime +
+                ", tester='" + tester + '\'' +
+                ", remarks='" + remarks + '\'' +
+                ", status='" + status + '\'' +
+                '}';
     }
 }
