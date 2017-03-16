@@ -16,6 +16,7 @@ lib-cov
 *.out
 *.pid
 *.gz
+bower_components
 
 pids
 logs

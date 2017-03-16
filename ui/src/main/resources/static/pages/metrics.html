@@ -1,0 +1,61 @@
+<div class="container-fluid">
+    <h2>运用监控</h2>
+    <p>
+        <button type="button" class="btn btn-primary" ng-click="vm.refresh()"><span class="glyphicon glyphicon-refresh"></span>&nbsp;Refresh</button>
+    </p>
+
+    <h3>JVM 监控</h3>
+    <div class="row" ng-hide="vm.updatingMetrics">
+        <div class="col-md-4">
+            <b>内存</b>
+            <p><span>总内存</span>({{vm.metrics.gauges['jvm.memory.total.used'].value / 1000000 | number:0}}M / {{vm.metrics.gauges['jvm.memory.total.max'].value / 1000000 | number:0}}M)</p>
+            <uib-progressbar min="0" max="vm.metrics.gauges['jvm.memory.total.max'].value" value="vm.metrics.gauges['jvm.memory.total.used'].value" class="progress-striped active" type="success">
+                <span>{{vm.metrics.gauges['jvm.memory.total.used'].value * 100 / vm.metrics.gauges['jvm.memory.total.max'].value  | number:0}}%</span>
+            </uib-progressbar>
+            <p><span>Heap 内存</span>({{vm.metrics.gauges['jvm.memory.heap.used'].value /1000000 | number:0}}M / {{vm.metrics.gauges['jvm.memory.heap.max'].value / 1000000 | number:0}}M)</p>
+            <uib-progressbar min="0" max="vm.metrics.gauges['jvm.memory.heap.max'].value" value="vm.metrics.gauges['jvm.memory.heap.used'].value" class="progress-striped active" type="success">
+                <span>{{vm.metrics.gauges['jvm.memory.heap.used'].value * 100 / vm.metrics.gauges['jvm.memory.heap.max'].value  | number:0}}%</span>
+            </uib-progressbar>
+            <p><span>Non-Heap 内存</span>({{vm.metrics.gauges['jvm.memory.non-heap.used'].value /1000000 | number:0}}M / {{vm.metrics.gauges['jvm.memory.non-heap.committed'].value / 1000000 | number:0}}M)</p>
+            <uib-progressbar min="0" max="vm.metrics.gauges['jvm.memory.non-heap.committed'].value" value="vm.metrics.gauges['jvm.memory.non-heap.used'].value" class="progress-striped active" type="success">
+                <span>{{vm.metrics.gauges['jvm.memory.non-heap.used'].value * 100 / vm.metrics.gauges['jvm.memory.non-heap.committed'].value  | number:0}}%</span>
+            </uib-progressbar>
+        </div>
+        <div class="col-md-4">
+            <b>Threads</b> (Total: {{vm.metrics.gauges['jvm.threads.count'].value}}) <a class="hand" ng-click="vm.refreshThreadDumpData()" data-toggle="modal" data-target="#threadDump"><i class="glyphicon glyphicon-eye-open"></i></a>
+            <p><span>Runnable</span> {{vm.metrics.gauges['jvm.threads.runnable.count'].value}}</p>
+            <uib-progressbar min="0" value="vm.metrics.gauges['jvm.threads.runnable.count'].value" max="vm.metrics.gauges['jvm.threads.count'].value" class="progress-striped active" type="success">
+                <span>{{vm.metrics.gauges['jvm.threads.runnable.count'].value * 100 / vm.metrics.gauges['jvm.threads.count'].value  | number:0}}%</span>
+            </uib-progressbar>
+            <p><span>Timed Waiting</span> ({{vm.metrics.gauges['jvm.threads.timed_waiting.count'].value}})</p>
+            <uib-progressbar min="0" value="vm.metrics.gauges['jvm.threads.timed_waiting.count'].value" max="vm.metrics.gauges['jvm.threads.count'].value" class="progress-striped active" type="warning">
+                <span>{{vm.metrics.gauges['jvm.threads.timed_waiting.count'].value * 100 / vm.metrics.gauges['jvm.threads.count'].value  | number:0}}%</span>
+            </uib-progressbar>
+            <p><span >Waiting</span> ({{vm.metrics.gauges['jvm.threads.waiting.count'].value}})</p>
+            <uib-progressbar min="0" value="vm.metrics.gauges['jvm.threads.waiting.count'].value" max="vm.metrics.gauges['jvm.threads.count'].value" class="progress-striped active" type="warning">
+                <span>{{vm.metrics.gauges['jvm.threads.waiting.count'].value * 100 / vm.metrics.gauges['jvm.threads.count'].value  | number:0}}%</span>
+            </uib-progressbar>
+            <p><span >Blocked</span> ({{vm.metrics.gauges['jvm.threads.blocked.count'].value}})</p>
+            <uib-progressbar min="0" value="vm.metrics.gauges['jvm.threads.blocked.count'].value" max="vm.metrics.gauges['jvm.threads.count'].value" class="progress-striped active" type="success">
+                <span>{{vm.metrics.gauges['jvm.threads.blocked.count'].value * 100 / vm.metrics.gauges['jvm.threads.count'].value  | number:0}}%</span>
+            </uib-progressbar>
+        </div>
+        <div class="col-md-4">
+            <b>内存 Pools</b>
+            <p><span>PS-Eden-Space</span> ({{vm.metrics.gauges['jvm.memory.pools.PS-Eden-Space.used'].value / 1000000 | number:0}}M / {{vm.metrics.gauges['jvm.memory.pools.PS-Eden-Space.max'].value / 1000000 | number:0}}M)</p>
+            <uib-progressbar min="0" max="vm.metrics.gauges['jvm.memory.pools.PS-Eden-Space.max'].value" value="vm.metrics.gauges['jvm.memory.pools.PS-Eden-Space.used'].value" class="progress-striped active" type="success">
+                <span>{{vm.metrics.gauges['jvm.memory.pools.PS-Eden-Space.used'].value * 100 / vm.metrics.gauges['jvm.memory.pools.PS-Eden-Space.max'].value  | number:0}}%</span>
+            </uib-progressbar>
+            <p><span>PS-Old-Gen</span> ({{vm.metrics.gauges['jvm.memory.pools.PS-Old-Gen.used'].value / 1000000 | number:0}}M / {{vm.metrics.gauges['jvm.memory.pools.PS-Old-Gen.max'].value / 1000000 | number:0}}M)</p>
+            <uib-progressbar min="0" max="vm.metrics.gauges['jvm.memory.pools.PS-Old-Gen.max'].value" value="vm.metrics.gauges['jvm.memory.pools.PS-Old-Gen.used'].value" class="progress-striped active" type="success">
+                <span>{{vm.metrics.gauges['jvm.memory.pools.PS-Old-Gen.used'].value * 100 / vm.metrics.gauges['jvm.memory.pools.PS-Old-Gen.max'].value  | number:0}}%</span>
+            </uib-progressbar>
+            <p><span>PS-Survivor-Space</span> ({{vm.metrics.gauges['jvm.memory.pools.PS-Survivor-Space.used'].value / 1000000 | number:0}}M / {{vm.metrics.gauges['jvm.memory.pools.PS-Survivor-Space.max'].value / 1000000 | number:0}}M)</p>
+            <uib-progressbar min="0" max="vm.metrics.gauges['jvm.memory.pools.PS-Survivor-Space.max'].value" value="vm.metrics.gauges['jvm.memory.pools.PS-Survivor-Space.used'].value" class="progress-striped active" type="success">
+                <span>{{vm.metrics.gauges['jvm.memory.pools.PS-Survivor-Space.used'].value * 100 / vm.metrics.gauges['jvm.memory.pools.PS-Survivor-Space.max'].value  | number:0}}%</span>
+            </uib-progressbar>
+        </div>
+    </div>
+
+
+</div>

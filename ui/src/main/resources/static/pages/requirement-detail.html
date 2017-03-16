@@ -1,10 +1,62 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+<div>
+    <h2><span>需求</span> {{requirement.id}}</h2>
+    <hr>
+    <dl class="row jh-entity-details dl-horizontal">
+        <dt><span >需求标题</span></dt>
+        <dd>
+            <span>{{requirement.name}}</span>
+        </dd>
+        <dt><span >需求内容简介</span></dt>
+        <dd>
+            <span>{{requirement.detail}}</span>
+        </dd>
+        <dt><span >所属系统</span></dt>
+        <dd>
+            <span>{{requirement.sysCode}}</span>
+        </dd>
+        <dt><span >计划上线时间</span></dt>
+        <dd>
+            <span>{{requirement.expectedUpdateTime  | date:'yyyy-MM-dd' }}</span>
+        </dd>
+        <dt><span >需求人</span></dt>
+        <dd>
+            <span>{{requirement.submitter}}</span>
+        </dd>
+        <dt><span >开发时间</span></dt>
+        <dd>
+            <span>{{requirement.developTime | date:'yyyy-MM-dd'}}</span>
+        </dd>
+        <dt><span >开发人员</span></dt>
+        <dd>
+            <span>{{requirement.developer}}</span>
+        </dd>
+        <dt><span >测试时间</span></dt>
+        <dd>
+            <span>{{requirement.testTime | date:'yyyy-MM-dd' }}</span>
+        </dd>
+        <dt><span >测试人员</span></dt>
+        <dd>
+            <span>{{requirement.tester}}</span>
+        </dd>
+        <dt><span >备注</span></dt>
+        <dd>
+            <span>{{requirement.remarks}}</span>
+        </dd>
+        <dt><span >状态</span></dt>
+        <dd>
+            <span>{{requirement.status}}</span>
+        </dd>
+    </dl>
 
-</body>
-</html>
+    <button type="submit"
+            ng-click="clear()"
+            class="btn btn-info">
+        <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span data-translate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button" ng-click="edit(requirement)" class="btn btn-primary">
+        <span class="glyphicon glyphicon-pencil"></span>
+        <span class="hidden-sm-down" > Edit</span>
+    </button>
+
+</div>

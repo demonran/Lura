@@ -24,5 +24,13 @@ app.controller('tables',['$scope','$http','$uibModal',function ($scope,$http,$ui
             resolve: {entity:angular.copy(requirement)}
         })
     }
+    $scope.view = function (requirement) {
+        $uibModal.open({
+            templateUrl:'/pages/requirement-detail.html',
+            controller: 'RequirementDetailController',
+            backdrop: 'static',
+            resolve: {entity:angular.copy(requirement)}
+        })
+    }
 
 }])

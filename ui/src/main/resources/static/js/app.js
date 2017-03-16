@@ -12,9 +12,10 @@ app.config(['$routeProvider',function($routeProvider) {
             templateUrl: "/pages/tables.html",
             controller:'tables'
             })
-        .when('/wx',{
-            //templateUrl: "/pages/tables.html",
-            //controller:'tables'
+        .when('/metrics',{
+            templateUrl: "/pages/metrics.html",
+            controller:'MetricsController',
+            controllerAs: 'vm'
         })
 
         .otherwise({redirectTo: '/'});
