@@ -36,6 +36,7 @@ subprojects {
                 "org.springframework.boot:spring-boot-starter-web"
         )
 
+
         runtime(
                 "org.springframework.boot:spring-boot-devtools"
         )

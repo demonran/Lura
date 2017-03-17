@@ -1,10 +1,12 @@
 version 'unspecified'
 
 apply plugin: 'java'
+apply plugin: 'war'
 
 
 
 repositories {
+    mavenLocal()
     mavenCentral()
 }
 
@@ -23,6 +25,15 @@ dependencies {
         exclude(module: 'metrics-core')
 //        exclude(module: 'metrics-healthchecks')
     }
+
+    compile 'org.springframework.boot:spring-boot-legacy:1.1.1.RELEASE'
+
+    compile("org.springframework.boot:spring-boot-starter-actuator")
+
+
+//    runtimeCompile (
+//            "org.springframework.boot:spring-boot-starter-tomcat"
+//    )
 
     testCompile group: 'junit', name: 'junit', version: '4.11'
 }

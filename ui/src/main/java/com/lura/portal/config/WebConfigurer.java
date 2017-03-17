@@ -30,7 +30,7 @@ public class WebConfigurer implements ServletContextInitializer, EmbeddedServlet
     public void onStartup(ServletContext servletContext) throws ServletException {
         EnumSet<DispatcherType> disps = EnumSet.of(DispatcherType.REQUEST, DispatcherType.FORWARD, DispatcherType.ASYNC);
         initMetrics(servletContext, disps);
-//        initDump(servletContext, disps);
+
     }
 
 
@@ -70,20 +70,7 @@ public class WebConfigurer implements ServletContextInitializer, EmbeddedServlet
         metricsAdminServlet.setLoadOnStartup(2);
     }
 
-    private void initDump(ServletContext servletContext, EnumSet<DispatcherType> disps) {
 
-        FilterRegistration.Dynamic metricsFilter = servletContext.addFilter("webappDumpFilter",
-                new InstrumentedFilter());
-        log.debug("Registering Thread Dump Servlet");
-        ServletRegistration.Dynamic threadDumpServlet =
-                servletContext.addServlet("threadDumpServlet", new ThreadDumpServlet());
-
-        threadDumpServlet.addMapping("/management/dump/*");
-        threadDumpServlet.setAsyncSupported(true);
-        threadDumpServlet.setLoadOnStartup(2);
-
-
-    }
 
     @Autowired(required = false)
     public void setMetricRegistry(MetricRegistry metricRegistry) {
